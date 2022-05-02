@@ -220,8 +220,39 @@ namespace WebAPI_Tutorial.Controllers
             }
         }
 
+        ////PATCH TASK
+        //[HttpPatch]
+        //public HttpResponseMessage PatchTask(int id, [FromBody] tblTask task)
+        //{
+        //    try
+        //    {
+        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
+        //        {
+        //            var entity = dbContext.tblTasks.FirstOrDefault(e => e.ID == id);
+        //            if (entity == null)
+        //            {
+        //                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+        //                    "Task with Id " + id.ToString() + " not found to update");
+        //            }
 
-        //public void patch
+        //            else
+        //            {
+        //                entity.ID = task.ID;
+        //                entity.Content = task.Content;
+        //                entity.UserID = task.UserID;
+
+        //                dbContext.SaveChanges();
+
+        //                return Request.CreateResponse(HttpStatusCode.OK, entity);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+        //    }
+        //}
+
     }
 }
 
