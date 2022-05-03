@@ -5,7 +5,6 @@ VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI_Tutorial", "WebAPI_Tutorial\WebAPI_Tutorial.csproj", "{3537D341-0248-4954-9B27-F6D60DD78D0E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{80586AE6-EBCD-43BD-85B9-250AEAC3680D} = {80586AE6-EBCD-43BD-85B9-250AEAC3680D}
 		{A1D9D6E6-0547-499E-93CB-4811F787E814} = {A1D9D6E6-0547-499E-93CB-4811F787E814}
 	EndProjectSection
 EndProject
