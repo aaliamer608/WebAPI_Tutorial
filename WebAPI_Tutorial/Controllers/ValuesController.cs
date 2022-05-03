@@ -1,10 +1,14 @@
-﻿using System;
+﻿using DomainEntities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebAPI_Tutorial.Models;
+using WebAPI_Tutorial;
+
+
+//TODO Connect service interfaces
 
 namespace WebAPI_Tutorial.Controllers
 {
@@ -255,8 +259,3 @@ namespace WebAPI_Tutorial.Controllers
 
     }
 }
-
-
-
-
-
