@@ -12,8 +12,6 @@ namespace ServiceInterfaces.DataViewModel
     public class UserService
     {
         public UnitOfWork uow { get; set; }
-        public int UserID { get; set; }
-        public string UserName { get; set; }
 
         public WebApiDBEntities dBEntities;
 
@@ -23,38 +21,50 @@ namespace ServiceInterfaces.DataViewModel
             this.uow = new UnitOfWork(dBEntities);
         }
 
-
-        //public List<UserDTO> getAllUsers()
-        //{
-        //    IEnumerable<UserMaster> users = uow.Users.GetAll();
-        //    List<UserDTO> results = new List<UserDTO>();
-
-        //    foreach (UserMaster user in users)
-        //    {
-        //        UserDTO userDTO = new UserDTO()
-        //        {
-        //            UserID = user.UserID,
-        //            UserName = user.UserName,
-        //            UserPassword = user.UserPassword,
-        //            UserEmailID = user.UserEmailID,
-        //            UserRoles = user.UserRoles
-        //        };
-        //        results.Add(userDTO);
-        //    }
-
-        //    return results;
-        //}
-
-        public List<UserService> getAllUsers()
+        public List<UserDTO> getAllUsers()
         {
-            //IEnumerable<UserMaster> users = uow.Users.GetAll();
-            //List<UserDTO> results = new List<UserDTO>();
+            IEnumerable<UserMaster> users = uow.Users.GetAll();
+            List<UserDTO> results = new List<UserDTO>();
 
-            var results = uow.Users.GetAll();
+            foreach (UserMaster user in users)
+            {
+                UserDTO userDTO = new UserDTO()
+                {
+                    UserID = user.UserID,
+                    UserName = user.UserName,
+                    UserPassword = user.UserPassword,
+                    UserEmailID = user.UserEmailID,
+                    UserRoles = user.UserRoles
+                };
+                results.Add(userDTO);
+            }
+            uow.Complete();
 
-            return (List<UserService>)results;//(IEnumerable<UserService>)results.ToList();
+            return results;
         }
 
 
+
+
+        public IEnumerable<UserDTO> getUserByID(int id)
+        {
+            var user = uow.Users.GetAll();
+
+            var result = (
+                from u in user
+                where u.UserID.Equals(id)
+                select new UserDTO
+                {
+                    UserName = u.UserName,
+                    UserEmailID = u.UserEmailID,
+                    UserRoles = u.UserRoles
+                }).ToList();
+
+            uow.Complete();
+
+            return result;
+
+
+        }
     }
 }

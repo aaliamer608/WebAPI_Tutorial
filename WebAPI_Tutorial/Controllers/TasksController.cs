@@ -12,18 +12,18 @@ using WebAPI_Tutorial;
 
 namespace WebAPI_Tutorial.Controllers
 {
-    public class UsersController : ApiController
+    public class TasksController : ApiController
     {
 
         MapperConfiguration config;
         IMapper mapper;
-        UserService userService;
+        TaskService taskService;
         //TaskServices categoryService;
 
 
-        public UsersController()
+        public TasksController()
         {
-            userService = new UserService();
+            taskService = new TaskService();
             config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserDTO, UserService>();
@@ -33,16 +33,16 @@ namespace WebAPI_Tutorial.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<UserDTO> GetUsers()
+        public IEnumerable<TaskDTO> GetTasks()
         {
-            return userService.getAllUsers();
+            return taskService.getAllTasks();
         }
 
 
         [HttpGet]
-        public IEnumerable<UserDTO> GetUsersByID(int id)
+        public IEnumerable<TaskDTO> GetTasksByID(int id)
         {
-            return userService.getUserByID(id);
+            return taskService.getTaskByID(id);
         }
 
 

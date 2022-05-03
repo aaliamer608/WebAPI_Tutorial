@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="DataTransferObjects\TaskDTO.cs" />
     <Compile Include="DataTransferObjects\UserDTO.cs" />
+    <Compile Include="DataViewModel\TaskService.cs" />
     <Compile Include="DataViewModel\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
