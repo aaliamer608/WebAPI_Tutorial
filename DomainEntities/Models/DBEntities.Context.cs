@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAPI_Tutorial.Models
+namespace DomainEntities.Models
 {
     using System;
     using System.Data.Entity;
