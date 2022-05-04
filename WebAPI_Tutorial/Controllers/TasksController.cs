@@ -75,7 +75,7 @@ namespace WebAPI_Tutorial.Controllers
 
         //POST Task
         [HttpPost]
-        public void postTask(TaskService taskModel)
+        public void PostTask([FromBody] TaskDTO taskModel)
         {
             TaskDTO taskDTO = mapper.Map<TaskDTO>(taskModel);
             taskService.PostTask(taskDTO);
@@ -114,7 +114,7 @@ namespace WebAPI_Tutorial.Controllers
         {
             if (taskModel == null)
             {
-                return BadRequest("Nothing is provided");
+                return BadRequest("Nothing To Patch");
 
             }
             else
