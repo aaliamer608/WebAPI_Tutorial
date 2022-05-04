@@ -10,6 +10,6 @@ namespace ServiceInterfaces.DataTransferObjects
     {
         public int ID { get; set; }
         public string Content { get; set; }
-        public int UserID { get; set; }
+        public string TaskType { get; set; }
     }
 }

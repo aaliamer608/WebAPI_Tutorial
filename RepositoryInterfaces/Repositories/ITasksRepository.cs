@@ -10,6 +10,9 @@ namespace RepositoryInterfaces.Repositories
 {
     public interface ITasksRepository : IGenericRepository<tblTask>
     {
-        
+        void PutTask(int id, tblTask tblTask);
+
+
+        void PatchTask(int id, tblTask tblTask);
     }
 }

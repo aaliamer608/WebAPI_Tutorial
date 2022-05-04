@@ -16,6 +16,6 @@ namespace DomainEntities.Models
     {
         public int ID { get; set; }
         public string Content { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public string TaskType { get; set; }
     }
 }

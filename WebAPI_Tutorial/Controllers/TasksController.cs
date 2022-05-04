@@ -18,7 +18,6 @@ namespace WebAPI_Tutorial.Controllers
         MapperConfiguration config;
         IMapper mapper;
         TaskService taskService;
-        //TaskServices categoryService;
 
 
         public TasksController()
@@ -26,273 +25,105 @@ namespace WebAPI_Tutorial.Controllers
             taskService = new TaskService();
             config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<UserDTO, UserService>();
+                cfg.CreateMap<TaskDTO, TaskService>();
+                cfg.CreateMap<TaskService, TaskDTO>();
                 //cfg.CreateMap
             });
             mapper = config.CreateMapper();
         }
-
+        //GET All tasks
         [HttpGet]
         public IEnumerable<TaskDTO> GetTasks()
         {
-            return taskService.getAllTasks();
+            return taskService.GetAllTasks();
         }
 
-
+        //GET Task by id
         [HttpGet]
         public IEnumerable<TaskDTO> GetTasksByID(int id)
         {
-            return taskService.getTaskByID(id);
+            return taskService.GetTaskByID(id);
+        }
+
+        //DELETE Task
+        [HttpDelete]
+        public HttpResponseMessage DeleteTask(int id)
+        {
+            var target = taskService.GetTaskByID(id);
+
+            try
+            {
+                if (target != null)
+                {
+                    taskService.DeleteTask(id);
+                    return Request.CreateResponse(HttpStatusCode.OK);
+
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                        "Task with Id = " + id.ToString() + " not found to delete");
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        //POST Task
+        [HttpPost]
+        public void postTask(TaskService taskModel)
+        {
+            TaskDTO taskDTO = mapper.Map<TaskDTO>(taskModel);
+            taskService.PostTask(taskDTO);
+        }
+
+        //PUT Task
+        [HttpPut]
+        public HttpResponseMessage PutTask(int id, [FromBody] TaskDTO taskModel)
+        {
+            try
+            {
+
+
+                if (taskModel == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                        "Employee with Id " + id.ToString() + " not found to update");
+                }
+                else
+                {
+                    taskService.PutTask(id, taskModel);
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
 
 
+        //PATCH Task
+        [HttpPatch]
+        public IHttpActionResult PatchTask([FromUri] int id, [FromBody] TaskService taskModel)
+        {
+            if (taskModel == null)
+            {
+                return BadRequest("Nothing is provided");
 
-        //public IHttpActionResult GetUsers()
-        //{
+            }
+            else
+            {
+                TaskDTO taskDTO = mapper.Map<TaskDTO>(taskModel);
+                taskService.PatchTask(id, taskDTO);
+                return Ok(taskService.GetTaskByID(id));
 
-
-        //    var result = userService.getAllUsers();
-        //    List<UserService> userList = new List<UserService>();
-
-        //    foreach (var item in result)
-        //    {
-        //        UserService userVM = new UserService();
-        //        userVM.UserID = item.UserID;
-        //        userVM.UserName = item.UserName;
-
-        //        userList.Add(userVM);
-        //    }
-
-        //    return View("Users", productList);
-
-        //}
-
-
-
-        ////GET ALL TASKS
-        //public IEnumerable<tblTask> GetTblTask()
-        //{
-        //    using (WebApiDBEntities dBEntities = new WebApiDBEntities())
-        //    {
-        //        return dBEntities.tblTasks.ToList();
-        //    }
-        //}
-
-
-
-        ////GET TASK BY ID
-        //public tblTask GetTblTaskByID(int id)
-        //{
-        //    using (WebApiDBEntities dBEntities = new WebApiDBEntities())
-        //    {
-        //        return dBEntities.tblTasks.FirstOrDefault(e => e.ID == id);
-        //    }
-        //}
-
-        ////POST NEW USER
-        //public HttpResponseMessage PostTblUser([FromBody] UserMaster user)
-        //{
-        //    try
-        //    {
-        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
-        //        {
-        //            dbContext.UserMasters.Add(user);
-        //            dbContext.SaveChanges();
-
-        //            var message = Request.CreateResponse(HttpStatusCode.Created, user);
-        //            message.Headers.Location = new Uri(Request.RequestUri +
-        //                user.UserID.ToString());
-
-        //            return message;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
-        ////POST NEW TASK
-        //public HttpResponseMessage PostTblTask([FromBody] tblTask task)
-        //{
-        //    try
-        //    {
-        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
-        //        {
-        //            dbContext.tblTasks.Add(task);
-        //            dbContext.SaveChanges();
-
-        //            var message = Request.CreateResponse(HttpStatusCode.Created, task);
-        //            message.Headers.Location = new Uri(Request.RequestUri +
-        //                task.ID.ToString());
-
-        //            return message;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
-
-        //// PUT (UPDATE) USER
-        //public HttpResponseMessage PutUser(int id, [FromBody] UserMaster user)
-        //{
-        //    try
-        //    {
-        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
-        //        {
-        //            var entity = dbContext.UserMasters.FirstOrDefault(e => e.UserID == id);
-        //            if (entity == null)
-        //            {
-        //                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-        //                    "User with Id " + id.ToString() + " not found to update");
-        //            }
-        //            else
-        //            {
-        //                entity.UserID = user.UserID;
-        //                entity.UserName = user.UserName;
-        //                entity.UserPassword = user.UserPassword;
-        //                entity.UserRoles = user.UserRoles;
-        //                entity.UserEmailID = user.UserEmailID;
-
-        //                dbContext.SaveChanges();
-
-        //                return Request.CreateResponse(HttpStatusCode.OK, entity);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
-
-
-        //// PUT (UPDATE) TASK
-        //public HttpResponseMessage PutTask(int id, [FromBody] tblTask task)
-        //{
-        //    try
-        //    {
-        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
-        //        {
-        //            var entity = dbContext.tblTasks.FirstOrDefault(e => e.ID == id);
-        //            if (entity == null)
-        //            {
-        //                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-        //                    "Task with Id " + id.ToString() + " not found to update");
-        //            }
-        //            else
-        //            {
-        //                entity.ID = task.ID;
-        //                entity.Content = task.Content;
-        //                entity.UserID = task.UserID;
-
-        //                dbContext.SaveChanges();
-
-        //                return Request.CreateResponse(HttpStatusCode.OK, entity);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
-
-
-        //// DELETE User
-        //public HttpResponseMessage DeleteUser(int id)
-        //{
-        //    try
-        //    {
-        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
-        //        {
-        //            var entity = dbContext.UserMasters.FirstOrDefault(e => e.UserID == id);
-        //            if (entity == null)
-        //            {
-        //                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-        //                    "User with Id = " + id.ToString() + " not found to delete");
-        //            }
-        //            else
-        //            {
-        //                dbContext.UserMasters.Remove(entity);
-        //                dbContext.SaveChanges();
-        //                return Request.CreateResponse(HttpStatusCode.OK);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
-
-        //public HttpResponseMessage DeleteTask(int id)
-        //{
-        //    try
-        //    {
-        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
-        //        {
-        //            var entity = dbContext.tblTasks.FirstOrDefault(e => e.ID == id);
-        //            if (entity == null)
-        //            {
-        //                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-        //                    "Task with Id = " + id.ToString() + " not found to delete");
-        //            }
-        //            else
-        //            {
-        //                dbContext.tblTasks.Remove(entity);
-        //                dbContext.SaveChanges();
-        //                return Request.CreateResponse(HttpStatusCode.OK);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
-        ////PATCH TASK
-        ///PatchDoc
-        ///Service
-        ///Authorization
-        //[HttpPatch]
-        //public HttpResponseMessage PatchTask(int id, [FromBody] tblTask task)
-        //{
-        //    try
-        //    {
-        //        using (WebApiDBEntities dbContext = new WebApiDBEntities())
-        //        {
-        //            var entity = dbContext.tblTasks.FirstOrDefault(e => e.ID == id);
-        //            if (entity == null)
-        //            {
-        //                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-        //                    "Task with Id " + id.ToString() + " not found to update");
-        //            }
-
-        //            else
-        //            {
-        //                entity.ID = task.ID;
-        //                entity.Content = task.Content;
-        //                entity.UserID = task.UserID;
-
-        //                dbContext.SaveChanges();
-
-        //                return Request.CreateResponse(HttpStatusCode.OK, entity);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
-
+            }
+        }
     }
 }

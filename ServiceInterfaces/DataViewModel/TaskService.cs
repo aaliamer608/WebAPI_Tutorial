@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceInterfaces.DataTransferObjects;
+using AutoMapper;
 
 namespace ServiceInterfaces.DataViewModel
 {
@@ -15,13 +16,24 @@ namespace ServiceInterfaces.DataViewModel
 
         public WebApiDBEntities dBEntities;
 
+        MapperConfiguration config;
+        IMapper mapper;
+
         public TaskService()
         {
             this.dBEntities = new WebApiDBEntities();
             this.uow = new UnitOfWork(dBEntities);
+
+            config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<tblTask, TaskDTO>();
+                cfg.CreateMap<TaskDTO, tblTask>();
+            }
+            );
+            mapper = config.CreateMapper();
         }
 
-        public List<TaskDTO> getAllTasks()
+        public List<TaskDTO> GetAllTasks()
         {
             IEnumerable<tblTask> tasks = uow.Tasks.GetAll();
             List<TaskDTO> results = new List<TaskDTO>();
@@ -31,7 +43,6 @@ namespace ServiceInterfaces.DataViewModel
                 TaskDTO taskDTO = new TaskDTO()
                 {
                     ID = task.ID,
-                    //UserID = (int)task.UserID,
                     Content = task.Content
                 };
                 results.Add(taskDTO);
@@ -44,7 +55,7 @@ namespace ServiceInterfaces.DataViewModel
 
 
 
-        public IEnumerable<TaskDTO> getTaskByID(int id)
+        public IList<TaskDTO> GetTaskByID(int id)
         {
             var tasks = uow.Tasks.GetAll();
 
@@ -60,6 +71,43 @@ namespace ServiceInterfaces.DataViewModel
             uow.Complete();
 
             return result;
+        }
+
+
+
+        public TaskDTO DeleteTask(int id)
+        {
+            tblTask foundTask = uow.Tasks.GetById(id);
+            if (foundTask != null)
+            {
+                uow.Tasks.Remove(foundTask);
+                uow.Complete();
+                return mapper.Map<TaskDTO>(foundTask);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void PostTask(TaskDTO taskDTO)
+        {
+            tblTask task = mapper.Map<tblTask>(taskDTO);
+            uow.Tasks.Add(task);
+            uow.Complete();
+        }
+
+
+        public void PutTask(int id, TaskDTO taskDTO)
+        {
+            uow.Tasks.PutTask(id, mapper.Map<tblTask>(taskDTO));
+        }
+
+
+
+        public void PatchTask(int id, TaskDTO taskDTO)
+        {
+            uow.Tasks.PatchTask(id, mapper.Map<tblTask>(taskDTO));
         }
     }
 }
