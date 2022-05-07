@@ -16,12 +16,15 @@ namespace RepositoryInterfaces
             _dbContext = dbContext;
             Users = new UsersRepository(_dbContext);
             Tasks = new TasksRepository(_dbContext);
+            Quotes = new QuotesRepository(_dbContext);
         }
 
 
         public IUsersRepository Users { get; set; }
 
         public ITasksRepository Tasks { get; set; }
+
+        public IQuotesRepository Quotes { get; set; }
 
 
         public int Complete()

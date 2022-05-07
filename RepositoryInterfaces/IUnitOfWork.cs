@@ -13,6 +13,7 @@ namespace RepositoryInterfaces
         IUsersRepository Users { get; }
         ITasksRepository Tasks { get; }
 
+        IQuotesRepository Quotes { get; }
 
 
         

@@ -25,6 +25,7 @@ namespace DomainEntities.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tblQuote> tblQuotes { get; set; }
         public virtual DbSet<tblTask> tblTasks { get; set; }
         public virtual DbSet<UserMaster> UserMasters { get; set; }
     }
