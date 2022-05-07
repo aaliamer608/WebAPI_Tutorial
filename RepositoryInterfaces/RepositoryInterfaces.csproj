@@ -86,7 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Repositories\IQuotesRepository.cs" />
     <Compile Include="Repositories\ITasksRepository.cs" />
+    <Compile Include="Repositories\QuotesRepository.cs" />
     <Compile Include="Repositories\TasksRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

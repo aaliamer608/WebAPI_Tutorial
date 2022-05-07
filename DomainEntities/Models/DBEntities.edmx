@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="WebApiDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblQuotes">
+          <Key>
+            <PropertyRef Name="Quote_ID" />
+          </Key>
+          <Property Name="Quote_ID" Type="int" Nullable="false" />
+          <Property Name="Quote_Type" Type="varchar" MaxLength="255" />
+          <Property Name="Contact_Name" Type="varchar" MaxLength="255" />
+          <Property Name="Task_Type" Type="varchar" MaxLength="255" />
+          <Property Name="DueDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tblTasks">
           <Key>
             <PropertyRef Name="ID" />
@@ -13,13 +23,6 @@
           <Property Name="Content" Type="nvarchar" MaxLength="250" />
           <Property Name="TaskType" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'WebApiDB.dbo.tblValues' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="tblValues">
-          <Property Name="Value_ID" Type="int" />
-          <Property Name="Value_Name" Type="varchar" MaxLength="255" />
-          <Property Name="Value_Misc" Type="varchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="UserMaster">
           <Key>
             <PropertyRef Name="UserID" />
@@ -31,6 +34,7 @@ warning 6013: The table/view 'WebApiDB.dbo.tblValues' does not have a primary ke
           <Property Name="UserEmailID" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityContainer Name="WebApiDBModelStoreContainer">
+          <EntitySet Name="tblQuotes" EntityType="Self.tblQuotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTasks" EntityType="Self.tblTasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -39,6 +43,16 @@ warning 6013: The table/view 'WebApiDB.dbo.tblValues' does not have a primary ke
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebApiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblQuote">
+          <Key>
+            <PropertyRef Name="Quote_ID" />
+          </Key>
+          <Property Name="Quote_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quote_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Contact_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Task_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tblTask">
           <Key>
             <PropertyRef Name="ID" />
@@ -58,6 +72,7 @@ warning 6013: The table/view 'WebApiDB.dbo.tblValues' does not have a primary ke
           <Property Name="UserEmailID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="WebApiDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblQuotes" EntityType="Self.tblQuote" />
           <EntitySet Name="tblTasks" EntityType="Self.tblTask" />
           <EntitySet Name="UserMasters" EntityType="Self.UserMaster" />
         </EntityContainer>
@@ -67,6 +82,17 @@ warning 6013: The table/view 'WebApiDB.dbo.tblValues' does not have a primary ke
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WebApiDBModelStoreContainer" CdmEntityContainer="WebApiDBEntities">
+          <EntitySetMapping Name="tblQuotes">
+            <EntityTypeMapping TypeName="WebApiDBModel.tblQuote">
+              <MappingFragment StoreEntitySet="tblQuotes">
+                <ScalarProperty Name="Quote_ID" ColumnName="Quote_ID" />
+                <ScalarProperty Name="Quote_Type" ColumnName="Quote_Type" />
+                <ScalarProperty Name="Contact_Name" ColumnName="Contact_Name" />
+                <ScalarProperty Name="Task_Type" ColumnName="Task_Type" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblTasks">
             <EntityTypeMapping TypeName="WebApiDBModel.tblTask">
               <MappingFragment StoreEntitySet="tblTasks">
