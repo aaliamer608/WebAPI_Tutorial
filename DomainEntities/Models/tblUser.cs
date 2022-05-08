@@ -12,7 +12,7 @@ namespace DomainEntities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserMaster
+    public partial class tblUser
     {
         public int UserID { get; set; }
         public string UserName { get; set; }

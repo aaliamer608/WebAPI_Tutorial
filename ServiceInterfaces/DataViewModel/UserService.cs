@@ -23,10 +23,10 @@ namespace ServiceInterfaces.DataViewModel
 
         public List<UserDTO> getAllUsers()
         {
-            IEnumerable<UserMaster> users = uow.Users.GetAll();
+            IEnumerable<tblUser> users = uow.Users.GetAll();
             List<UserDTO> results = new List<UserDTO>();
 
-            foreach (UserMaster user in users)
+            foreach (tblUser user in users)
             {
                 UserDTO userDTO = new UserDTO()
                 {

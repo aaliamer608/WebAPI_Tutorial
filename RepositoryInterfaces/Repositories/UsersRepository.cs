@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryInterfaces.Repositories
 {
-    public class UsersRepository : GenericRepository<UserMaster>, IUsersRepository
+    public class UsersRepository : GenericRepository<tblUser>, IUsersRepository
     {
 
         public UsersRepository(WebApiDBEntities dBEntities) : base(dBEntities)
