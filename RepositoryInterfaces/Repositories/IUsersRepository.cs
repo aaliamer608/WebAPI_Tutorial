@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace RepositoryInterfaces.Repositories
 {
-    public interface IUsersRepository : IGenericRepository<UserMaster>
+    public interface IUsersRepository : IGenericRepository<tblUser>
     {
 
     }

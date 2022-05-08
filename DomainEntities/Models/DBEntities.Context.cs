@@ -27,6 +27,6 @@ namespace DomainEntities.Models
     
         public virtual DbSet<tblQuote> tblQuotes { get; set; }
         public virtual DbSet<tblTask> tblTasks { get; set; }
-        public virtual DbSet<UserMaster> UserMasters { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
     }
 }

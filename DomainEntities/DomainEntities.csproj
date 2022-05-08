@@ -108,7 +108,7 @@
     <Compile Include="Models\tblTask.cs">
       <DependentUpon>DBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserMaster.cs">
+    <Compile Include="Models\tblUser.cs">
       <DependentUpon>DBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,7 +23,9 @@
           <Property Name="Content" Type="nvarchar" MaxLength="250" />
           <Property Name="TaskType" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <EntityType Name="UserMaster">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WebApiDB.dbo.tblUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblUsers">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
@@ -36,7 +38,15 @@
         <EntityContainer Name="WebApiDBModelStoreContainer">
           <EntitySet Name="tblQuotes" EntityType="Self.tblQuotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTasks" EntityType="Self.tblTasks" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserMaster" EntityType="Self.UserMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblUsers].[UserID] AS [UserID], 
+    [tblUsers].[UserName] AS [UserName], 
+    [tblUsers].[UserPassword] AS [UserPassword], 
+    [tblUsers].[UserRoles] AS [UserRoles], 
+    [tblUsers].[UserEmailID] AS [UserEmailID]
+    FROM [dbo].[tblUsers] AS [tblUsers]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -61,7 +71,7 @@
           <Property Name="Content" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="TaskType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="UserMaster">
+        <EntityType Name="tblUser">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
@@ -74,7 +84,7 @@
         <EntityContainer Name="WebApiDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblQuotes" EntityType="Self.tblQuote" />
           <EntitySet Name="tblTasks" EntityType="Self.tblTask" />
-          <EntitySet Name="UserMasters" EntityType="Self.UserMaster" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -102,9 +112,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserMasters">
-            <EntityTypeMapping TypeName="WebApiDBModel.UserMaster">
-              <MappingFragment StoreEntitySet="UserMaster">
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="WebApiDBModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
