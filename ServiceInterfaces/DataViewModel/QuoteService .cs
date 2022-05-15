@@ -42,10 +42,11 @@ namespace ServiceInterfaces.DataViewModel
             {
                 QuoteDTO quoteDTO = new QuoteDTO()
                 {
-                    ID = quote.Quote_ID,
+                    Quote_ID = quote.Quote_ID,
                     Quote_Type = quote.Quote_Type,
                     Task_Type = quote.Task_Type,
-                    DueDate = (DateTime)quote.DueDate
+                    Contact_Name = quote.Contact_Name,
+                    DueDate = quote.DueDate
                 };
                 results.Add(quoteDTO);
             }
@@ -66,7 +67,7 @@ namespace ServiceInterfaces.DataViewModel
                 where q.Quote_ID.Equals(id)
                 select new QuoteDTO
                 {
-                    ID = q.Quote_ID,
+                    Quote_ID = q.Quote_ID,
                     Quote_Type = q.Quote_Type,
                     Task_Type = q.Task_Type,
                     DueDate = (DateTime)q.DueDate

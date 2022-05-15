@@ -25,8 +25,10 @@ namespace RepositoryInterfaces.Repositories
                 var result = db.tblQuotes.SingleOrDefault(q => q.Quote_ID == id);
                 if (result != null)
                 {
+                    result.Contact_Name = quote.Contact_Name;
                     result.Quote_Type = quote.Quote_Type;
                     result.Task_Type = quote.Task_Type;
+                    result.DueDate = quote.DueDate;
                 }
                 db.SaveChanges();
             }
