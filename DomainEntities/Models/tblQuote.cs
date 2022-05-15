@@ -11,7 +11,7 @@ namespace DomainEntities.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class tblQuote
     {
         public int Quote_ID { get; set; }

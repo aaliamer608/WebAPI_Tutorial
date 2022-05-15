@@ -12,7 +12,7 @@ namespace ServiceInterfaces.DataTransferObjects
         public string Quote_Type { get; set; }
         public string Contact_Name { get; set; }
         public string Task_Type { get; set; }
-        public DateTime DueDate{ get; set; }
+        public DateTime? DueDate{ get; set; }
 
     }
 }

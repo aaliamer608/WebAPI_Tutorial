@@ -46,7 +46,7 @@ namespace ServiceInterfaces.DataViewModel
                     Quote_Type = quote.Quote_Type,
                     Task_Type = quote.Task_Type,
                     Contact_Name = quote.Contact_Name,
-                    DueDate = (DateTime)quote.DueDate
+                    DueDate = quote.DueDate
                 };
                 results.Add(quoteDTO);
             }

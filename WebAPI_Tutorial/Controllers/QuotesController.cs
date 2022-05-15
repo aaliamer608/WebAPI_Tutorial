@@ -49,6 +49,7 @@ namespace WebAPI_Tutorial.Controllers
         [HttpDelete]
         public HttpResponseMessage DeleteQuote(int id)
         {
+
             var target = quoteService.GetQuoteByID(id);
 
             try
@@ -77,33 +78,39 @@ namespace WebAPI_Tutorial.Controllers
         [HttpPost]
         public void PostQuote([FromBody] QuoteDTO quoteModel)
         {
-            QuoteDTO quoteDTO = mapper.Map<QuoteDTO>(quoteModel);
-            quoteService.PostQuote(quoteDTO);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    QuoteDTO quoteDTO = mapper.Map<QuoteDTO>(quoteModel);
+                    quoteService.PostQuote(quoteDTO);
+
+                }
+                catch (Exception)
+                {
+                    BadRequest();
+                }
+            }
         }
 
         //PUT Quote
         [HttpPut]
-        public HttpResponseMessage PutQuote(int id, [FromBody] QuoteDTO quoteModel)
+        public void PutQuote(int id, [FromBody] QuoteDTO quoteModel)
         {
-            try
+
+            if (ModelState.IsValid)
             {
-
-
-                if (quoteModel == null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                        "Employee with Id " + id.ToString() + " not found to update");
-                }
-                else
+                try
                 {
                     quoteService.PutQuote(id, quoteModel);
-                    return Request.CreateResponse(HttpStatusCode.OK);
-                }
+                    Request.CreateResponse(HttpStatusCode.OK);
 
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                }
+                catch (Exception ex)
+                {
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound,
+    "Employee with Id " + id.ToString() + " not found to update");
+                }
             }
         }
 
