@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceInterfaces.DataTransferObjects;
+using AutoMapper;
 
 namespace ServiceInterfaces.DataViewModel
 {
@@ -15,10 +16,21 @@ namespace ServiceInterfaces.DataViewModel
 
         public WebApiDBEntities dBEntities;
 
+        MapperConfiguration config;
+        IMapper mapper;
+
         public UserService()
         {
             this.dBEntities = new WebApiDBEntities();
             this.uow = new UnitOfWork(dBEntities);
+            
+            config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<tblUser, UserDTO>();
+                cfg.CreateMap<UserDTO, tblUser>();
+            }
+            );
+            mapper = config.CreateMapper();
         }
 
         public List<UserDTO> getAllUsers()
@@ -66,5 +78,14 @@ namespace ServiceInterfaces.DataViewModel
 
 
         }
+
+        public void PostUser(UserDTO userDTO)
+        {
+            tblUser user = mapper.Map<tblUser>(userDTO);
+            uow.Users.Add(user);
+            uow.Complete();
+        }
+
+
     }
 }
