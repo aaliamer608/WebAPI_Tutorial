@@ -23,8 +23,6 @@
           <Property Name="Content" Type="nvarchar" MaxLength="250" />
           <Property Name="TaskType" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'WebApiDB.dbo.tblUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblUsers">
           <Key>
             <PropertyRef Name="UserID" />
@@ -38,15 +36,7 @@ warning 6002: The table/view 'WebApiDB.dbo.tblUsers' does not have a primary key
         <EntityContainer Name="WebApiDBModelStoreContainer">
           <EntitySet Name="tblQuotes" EntityType="Self.tblQuotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTasks" EntityType="Self.tblTasks" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblUsers].[UserID] AS [UserID], 
-    [tblUsers].[UserName] AS [UserName], 
-    [tblUsers].[UserPassword] AS [UserPassword], 
-    [tblUsers].[UserRoles] AS [UserRoles], 
-    [tblUsers].[UserEmailID] AS [UserEmailID]
-    FROM [dbo].[tblUsers] AS [tblUsers]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>

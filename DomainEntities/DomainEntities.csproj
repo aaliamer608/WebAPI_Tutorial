@@ -99,40 +99,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityMapper\Class1.cs" />
-    <Compile Include="Models\DBEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DBEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DBEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBEntities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\tblQuote.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>WebApiEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblTask.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>WebApiEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblUser.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>WebApiEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebApiEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebApiEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebApiEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebApiEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebApiEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebApiEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="Models\DBEntities.edmx">
+    <EntityDeploy Include="Models\WebApiEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>WebApiEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\DBEntities.edmx.diagram">
-      <DependentUpon>DBEntities.edmx</DependentUpon>
+    <None Include="Models\WebApiEntities.edmx.diagram">
+      <DependentUpon>WebApiEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -140,15 +140,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\DBEntities.Context.tt">
+    <Content Include="Models\WebApiEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBEntities.edmx</DependentUpon>
-      <LastGenOutput>DBEntities.Context.cs</LastGenOutput>
+      <DependentUpon>WebApiEntities.edmx</DependentUpon>
+      <LastGenOutput>WebApiEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DBEntities.tt">
+    <Content Include="Models\WebApiEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBEntities.edmx</DependentUpon>
-      <LastGenOutput>DBEntities.cs</LastGenOutput>
+      <DependentUpon>WebApiEntities.edmx</DependentUpon>
+      <LastGenOutput>WebApiEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

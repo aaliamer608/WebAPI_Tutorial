@@ -29,6 +29,7 @@ namespace WebAPI_Tutorial.Controllers
             config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserDTO, UserService>();
+                cfg.CreateMap<UserService, UserDTO>();
                 //cfg.CreateMap
             });
             mapper = config.CreateMapper();
@@ -48,7 +49,7 @@ namespace WebAPI_Tutorial.Controllers
         }
 
 
-        //POST Quote
+        //POST User
         [HttpPost]
         public void PostUser([FromBody] UserDTO userModel)
         {
@@ -66,6 +67,9 @@ namespace WebAPI_Tutorial.Controllers
                 }
             }
         }
+
+
+
 
 
 
