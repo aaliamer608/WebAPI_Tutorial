@@ -87,5 +87,24 @@ namespace ServiceInterfaces.DataViewModel
         }
 
 
+
+
+        public UserDTO ValidateUser(string username, string password)
+        {
+            var user = uow.Users.GetAll();
+            var retu = user.Where(x => x.UserName == username && x.UserPassword == password).Select(x => new UserDTO
+            {
+                UserID = x.UserID,
+                UserEmailID = x.UserEmailID,
+                UserPassword = x.UserPassword,
+                UserName = x.UserName
+            }).FirstOrDefault<UserDTO>();
+
+            return retu;
+        }
+        public void Dispose()
+        {
+            uow.Dispose();
+        }
     }
 }
