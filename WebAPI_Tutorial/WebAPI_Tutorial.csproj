@@ -365,6 +365,11 @@
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
+    <Content Include="View\Home\Index.cshtml" />
+    <Content Include="View\Shared\Error.cshtml" />
+    <Content Include="View\Shared\_Layout.cshtml" />
+    <Content Include="View\Web.config" />
+    <Content Include="View\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
